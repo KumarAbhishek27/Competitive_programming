@@ -1,3 +1,4 @@
+// problem link :- https://open.kattis.com/problems/magicalcows
 #include <bits/stdc++.h>
 using namespace std;
 #define gc getchar_unlocked
