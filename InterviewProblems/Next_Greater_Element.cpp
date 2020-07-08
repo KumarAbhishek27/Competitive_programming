@@ -117,34 +117,17 @@ int32_t main() {
     int n;
     cin >> n;
     
-    vector<int> A(n), nxe(n, -1);
+    vector<int> A(n);
     for(int i = 0; i < n; ++i)
         cin >> A[i];
 
-    nxe[n - 1] = -1;
-    for(int i = n - 2; i >= 0; --i){
-        // if A[i + 1] > A[i]
-        if(A[i + 1] > A[i])
-            nxe[i] = A[i + 1];
-        else{
-            if(nxe[i + 1] > A[i])
-                nxe[i] = nxe[i + 1];
-        }
-    }
-
-    cout << "#1 Simple Solution:\n";
-    for(int i = 0; i < n; ++i)
-        cout << A[i] << " --> " << nxe[i] << endl;
-    cout << endl;
-
-
     // Stack Solution: printing the elements in random order
-    cout << "#2 Solution using Stack:\n";
+    cout << "#1 Solution using Stack:\n";
     printNGE(A, n);
     cout << endl;
 
     // stack solution : printing the elements in the given order
-    cout << "#3 Solution using Stack(better):\n";
+    cout << "#2 Solution using Stack(better):\n";
     printNGE_sameOrder(A, n);
     cout << endl;
 
