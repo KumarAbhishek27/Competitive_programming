@@ -134,7 +134,88 @@ int32_t main() {
     ca.refer(5); 
     ca.display();
 
-
-
     return 0;
 }
+
+
+/* leetcode example : LRUCache
+    
+    class LRUCache {
+    
+        // doubly linked list for the LRUcache
+        list<int> dq;
+
+        // map to store key -> value pairs
+        unordered_map<int, int> cache;
+
+        // another map to back-up the list
+        unordered_map<int, list<int> :: iterator> ma;
+
+        // capacity of the LRUCache
+        int csize;
+
+        // Refers key x with in the LRU cache
+        void refer(int x){ 
+            // not present in cache 
+            if (ma.find(x) == ma.end()) { 
+                // cache is full 
+                if (dq.size() == csize) { 
+                    // delete least recently used element 
+                    int last = dq.back(); 
+
+                    // Pops the last elmeent 
+                    dq.pop_back(); 
+
+                    // Erase the last 
+                    cache.erase(last);
+                    ma.erase(last); 
+
+                } 
+            } 
+
+            // present in cache 
+            else
+                dq.erase(ma[x]); 
+
+            // update reference 
+            dq.push_front(x); 
+            ma[x] = dq.begin();
+        }
+
+
+    public:
+        LRUCache(int capacity) {
+            csize = capacity;
+        }
+
+        int get(int key) {
+            if(cache.find(key) != cache.end()){
+                refer(key); // erase the key and move to front of the LRUcache            
+                return cache[key]; // return the value stored at this key
+            }
+
+            return -1; // page fault (Not found)
+        }
+
+        void put(int key, int value) {
+            refer(key); // if key not present then insert it in the front
+            // or if already present delete its previous occurence and then
+            // move it to the front (using LRU eviction policy)
+
+            cache[key] = value;  // set the key -> value pair
+        }
+    };
+
+    /**
+     * Your LRUCache object will be instantiated and called as such:
+     * LRUCache* obj = new LRUCache(capacity);
+     * int param_1 = obj->get(key);
+     * obj->put(key,value);
+     */
+
+*/
+
+
+
+
+
