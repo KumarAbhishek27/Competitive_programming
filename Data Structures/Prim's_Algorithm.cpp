@@ -102,7 +102,7 @@ int32_t main() {
             int weight = it.second;
             if (mstSet[v] == false && weight < key[v]) {
                 parent[v] = u;
-		            key[v] = weight; 
+		key[v] = weight; 
                 pq.push({key[v], v});    
             }
         }
