@@ -37,6 +37,58 @@ const int mod = 1e9 + 7;
 //=========================================
 
 // Time Complexity: O(n * (log(n)^2))
+// Time Complexity with Radix Sort: O(n * log(n));
+
+
+void radix_sort(vector<pair<pair<int, int>, int> > &a) {
+
+    int n = a.size();
+    {
+        vector<int> cnt(n, 0);
+        for (auto x : a)
+            cnt[x.first.second]++;
+
+        vector<pair<pair<int, int>, int> > a_new(n);
+        vector<int> pos(n);
+        pos[0] = 0;
+        for (int i = 1; i < n; ++i) {
+            pos[i] = pos[i - 1] + cnt[i - 1];
+        }        
+
+        for (auto x : a) {
+            int i = x.first.second;
+            a_new[pos[i]] = x;
+            pos[i]++;
+        }
+
+        a = a_new;
+    }
+
+    {
+
+        vector<int> cnt(n, 0);
+        for (auto x : a)
+            cnt[x.first.first]++;
+
+        vector<pair<pair<int, int>, int> > a_new(n);
+        vector<int> pos(n);
+        pos[0] = 0;
+        for (int i = 1; i < n; ++i) {
+            pos[i] = pos[i - 1] + cnt[i - 1];
+        }        
+
+        for (auto x : a) {
+            int i = x.first.first;
+            a_new[pos[i]] = x;
+            pos[i]++;
+        }
+
+        a = a_new;   
+
+    }
+
+}
+
 
 void generateSuffixArray() {
 
@@ -71,7 +123,7 @@ void generateSuffixArray() {
         for (int i = 0; i < n; ++i) {
             a[i] = {{c[i], c[(i + (1 << k)) % n]}, i};
         }
-        sort(a.begin(), a.end());
+        radix_sort(a);
 
         for (int i = 0; i < n; ++i) p[i] = a[i].second;
         c[p[0]] = 0;
@@ -88,7 +140,7 @@ void generateSuffixArray() {
 
 
     for (int i = 0; i < n; ++i) {
-        cout << p[i] << ' ' << s.substr(p[i], n - p[i]) << '\n';
+        cout << p[i] << ' '; //<< s.substr(p[i], n - p[i]) << '\n';
     }
 
 }
