@@ -66,9 +66,9 @@ int selection_algorithm(int left, int right, int kth){
         int pivotIndex = partition(left, right); // Select the pivot element beteween [left, right]
         int len = pivotIndex - left + 1;
 
-        if(kth == len)
+        if(kth == pivotIndex)
             return A[pivotIndex];
-        else if(kth < len)
+        else if(kth < pivotIndex)
             right = pivotIndex - 1;
         else
             left = pivotIndex + 1;
